@@ -1,4 +1,4 @@
-//! A minimal setup for a `no_std` library with `wee_alloc` as allocator
+//! A minimal setup for a `no_std` library with `wee_alloc` as global allocator
 
 // Set up for no-std.
 #![no_std]

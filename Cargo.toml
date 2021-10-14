@@ -1,14 +1,11 @@
 [package]
 name = "min-no-std"
 version = "0.1.0"
-description = "A minimal setup for a `no_std` library with `wee_alloc` as allocator"
+description = "A minimal setup for a no_std library with wee_alloc as global allocator"
 authors = ["Kobby Pentangeli <kobbypentangeli@gmail.com>"]
 repository = "https://github.com/kobby-pentangeli/min-no-std"
 license = "MIT"
 edition = "2021"
-
-[lib]
-crate-type = ["cdylib"]
 
 [dependencies]
 # `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
@@ -18,7 +15,18 @@ crate-type = ["cdylib"]
 # Unfortunately, `wee_alloc` requires nightly Rust when targeting wasm for now.
 wee_alloc = "0.4.5"
 
+[lib]
+crate-type = ["cdylib"]
+
 [profile.release]
-lto = true
-opt-level = "z"
-panic = 'abort'
+lto = true          # turn on Link-Time Optimizations
+codegen-units = 1   # trade compile time with maximum optimization
+opt-level = "z"     # optimize for size
+debug = false
+debug-assertions = false
+incremental = false
+overflow-checks = true
+panic = "abort"
+
+[profile.dev]
+panic = "abort"
