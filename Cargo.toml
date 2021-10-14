@@ -8,7 +8,7 @@ license = "MIT"
 edition = "2021"
 
 [lib]
-crate-type = ["cdylib", "rlib"]
+crate-type = ["cdylib"]
 
 [dependencies]
 # `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
@@ -19,14 +19,6 @@ crate-type = ["cdylib", "rlib"]
 wee_alloc = "0.4.5"
 
 [profile.release]
-lto = true          # turn on Link-Time Optimizations
-codegen-units = 1   # trade compile time with maximum optimization
-opt-level = "s"     # optimize for size
-debug = false
-debug-assertions = false
-incremental = false
-overflow-checks = true
+lto = true
+opt-level = "z"
 panic = 'abort'
-
-[profile.dev]
-panic = "abort"
